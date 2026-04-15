@@ -67,6 +67,10 @@
         .btn-primary:hover { background: var(--primary-light); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(108,60,225,0.2); }
         .btn-outline { background: #fff; color: var(--primary); border: 2px solid var(--primary); }
         .btn-outline:hover { background: rgba(108,60,225,0.05); transform: translateY(-1px); }
+        .btn-danger { background: #EF4444; color: #fff; }
+        .btn-danger:hover { background: #DC2626; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(239,68,68,0.2); }
+        .del-btn { background: none; border: 1px solid #FCA5A5; color: #EF4444; border-radius: 6px; padding: 4px 10px; font-size: 12px; font-family: 'Tajawal'; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+        .del-btn:hover { background: #FEE2E2; border-color: #EF4444; }
 
         /* Stats */
         .stats {
@@ -269,6 +273,7 @@
     <div class="actions">
         <button class="btn btn-outline" onclick="loadData()">🔄 تحديث</button>
         <button class="btn btn-primary" onclick="window.print()">🖨️ طباعة</button>
+        <button class="btn btn-danger no-print" onclick="confirmDeleteAll()">🗑️ حذف الكل</button>
     </div>
 </div>
 
@@ -378,7 +383,7 @@ function renderTable(data) {
         <thead><tr>
             <th>#</th><th>الاسم</th>
             <th>ربط الأفكار</th><th>التجريب</th><th>الاستكشاف</th><th>التكيف</th><th>الفضول</th>
-            <th>المجموع</th><th>اللقب</th><th>مهارة التطوير</th><th>التاريخ</th>
+            <th>المجموع</th><th>اللقب</th><th>مهارة التطوير</th><th>التاريخ</th><th class="no-print">حذف</th>
         </tr></thead><tbody>`;
 
     data.forEach((a, i) => {
@@ -396,6 +401,7 @@ function renderTable(data) {
             <td><span class="badge ${bc}">${a.innovation_title}</span></td>
             <td style="font-size:12px">${a.development_skill}</td>
             <td style="font-size:11px;color:var(--text-light);white-space:nowrap">${formatDate(a.created_at)}</td>
+            <td class="no-print"><button class="del-btn" onclick="deleteOne(${a.id})">حذف</button></td>
         </tr>`;
     });
 
@@ -418,6 +424,23 @@ function formatDate(dt) {
             hour: '2-digit', minute: '2-digit'
         });
     } catch(e) { return dt; }
+}
+
+async function deleteOne(id) {
+    if (!confirm('هل تريد حذف هذا السجل؟')) return;
+    try {
+        await fetch(`/api/attempts/${id}`, { method: 'DELETE' });
+        loadData();
+    } catch(e) { alert('فشل الحذف'); }
+}
+
+async function confirmDeleteAll() {
+    if (!confirm('⚠️ هل أنت متأكد من حذف جميع البيانات؟\nهذا الإجراء لا يمكن التراجع عنه.')) return;
+    if (!confirm('تأكيد نهائي: سيتم حذف جميع النتائج المسجلة. متأكد؟')) return;
+    try {
+        await fetch('/api/attempts/all', { method: 'DELETE' });
+        loadData();
+    } catch(e) { alert('فشل الحذف'); }
 }
 
 loadData();

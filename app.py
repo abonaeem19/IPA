@@ -6,7 +6,7 @@ Flask App for Web Deployment (PythonAnywhere / Render / Railway)
 from flask import Flask, request, jsonify, send_from_directory
 import os
 import json
-from database import init_db, save_attempt, get_all_attempts, get_stats
+from database import init_db, save_attempt, get_all_attempts, get_stats, delete_attempt, delete_all_attempts
 
 # ── Setup ─────────────────────────────────────────────────────────────────────
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -119,6 +119,18 @@ def stats():
 def attempts():
     limit = request.args.get('limit', 500, type=int)
     return jsonify({"attempts": get_all_attempts(limit)})
+
+
+@app.route('/api/attempts/<int:attempt_id>', methods=['DELETE'])
+def delete_single(attempt_id):
+    delete_attempt(attempt_id)
+    return jsonify({"success": True})
+
+
+@app.route('/api/attempts/all', methods=['DELETE'])
+def delete_all():
+    delete_all_attempts()
+    return jsonify({"success": True})
 
 
 # ── Run ───────────────────────────────────────────────────────────────────────

@@ -79,6 +79,22 @@ def get_all_attempts(limit=500):
     return [dict(r) for r in rows]
 
 
+def delete_attempt(attempt_id):
+    """حذف محاولة بالمعرّف"""
+    conn = _conn()
+    conn.execute("DELETE FROM attempts WHERE id = ?", (attempt_id,))
+    conn.commit()
+    conn.close()
+
+
+def delete_all_attempts():
+    """حذف جميع المحاولات"""
+    conn = _conn()
+    conn.execute("DELETE FROM attempts")
+    conn.commit()
+    conn.close()
+
+
 def get_stats():
     """إحصائيات عامة"""
     conn = _conn()
