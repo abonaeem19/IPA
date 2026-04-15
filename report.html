@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الشيت المركزي — مقياس الابتكار</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap');
+
+        :root {
+            --primary: #6C3CE1;
+            --primary-light: #8B5CF6;
+            --accent: #F59E0B;
+            --bg: #F8F7FF;
+            --bg-card: #FFFFFF;
+            --text: #1E1B3A;
+            --text-light: #6B7280;
+            --success: #10B981;
+            --border: #E5E7EB;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .top-bar {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+        }
+        .top-bar h1 {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .top-bar .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+        .btn-primary { background: var(--primary); color: #fff; }
+        .btn-primary:hover { background: var(--primary-light); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(108,60,225,0.2); }
+        .btn-outline { background: #fff; color: var(--primary); border: 2px solid var(--primary); }
+        .btn-outline:hover { background: rgba(108,60,225,0.05); transform: translateY(-1px); }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            padding: 24px 32px;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.4s ease, transform 0.4s ease, box-shadow var(--transition);
+        }
+        .stat-card.show { opacity: 1; transform: translateY(0); }
+        .stat-card:hover { box-shadow: 0 4px 16px rgba(108,60,225,0.08); }
+        .stat-label { font-size: 13px; color: var(--text-light); margin-bottom: 4px; }
+        .stat-value { font-size: 28px; font-weight: 800; color: var(--primary); }
+        .stat-sub { font-size: 12px; color: var(--text-light); margin-top: 4px; }
+
+        /* Table */
+        .table-wrap { padding: 0 32px 32px; }
+        .table-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .table-header h2 { font-size: 18px; font-weight: 700; }
+        .search-box {
+            padding: 10px 16px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 14px;
+            width: 260px;
+            outline: none;
+            transition: border-color var(--transition), box-shadow var(--transition);
+        }
+        .search-box:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108,60,225,0.1);
+        }
+
+        .table-container {
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        thead {
+            background: var(--primary);
+            color: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
+        th {
+            padding: 12px 10px;
+            font-weight: 700;
+            text-align: right;
+            white-space: nowrap;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid var(--border);
+            text-align: right;
+            vertical-align: top;
+            transition: background 0.15s ease;
+        }
+        tr:hover td { background: rgba(108,60,225,0.025); }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .badge-organizer { background: #DBEAFE; color: #1E40AF; }
+        .badge-practical { background: #FEF3C7; color: #92400E; }
+        .badge-innovator { background: #D1FAE5; color: #065F46; }
+
+        .score-cell {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px; height: 28px;
+            border-radius: 6px;
+            font-weight: 800;
+            font-size: 13px;
+            color: #fff;
+        }
+        .sc-1 { background: #F87171; }
+        .sc-2 { background: var(--accent); }
+        .sc-3 { background: var(--success); }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-light);
+        }
+        .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
+
+        .loading-state {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-light);
+        }
+
+        .result-count {
+            font-size: 13px;
+            color: var(--text-light);
+            padding: 8px 0;
+        }
+
+        /* ══════ RESPONSIVE — TABLET (max 768px) ══════ */
+        @media (max-width: 768px) {
+            .top-bar { padding: 14px 20px; }
+            .top-bar h1 { font-size: 17px; }
+            .stats { padding: 16px 20px; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+            .table-wrap { padding: 0 20px 20px; }
+            .search-box { width: 200px; }
+            .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            table { min-width: 800px; }
+        }
+
+        /* ══════ RESPONSIVE — MOBILE (max 480px) ══════ */
+        @media (max-width: 480px) {
+            .top-bar { padding: 12px 14px; gap: 10px; }
+            .top-bar h1 { font-size: 15px; gap: 6px; }
+            .top-bar .actions { width: 100%; }
+            .top-bar .actions .btn { flex: 1; padding: 10px 12px; font-size: 13px; }
+            .stats { padding: 12px 14px; gap: 8px; grid-template-columns: repeat(2, 1fr); }
+            .stat-card { padding: 14px; border-radius: 10px; }
+            .stat-value { font-size: 24px; }
+            .stat-label { font-size: 12px; }
+            .stat-sub { font-size: 11px; }
+            .stat-card:nth-child(5) { grid-column: 1 / -1; }
+            .table-wrap { padding: 0 14px 14px; }
+            .table-header h2 { font-size: 16px; }
+            .search-box { width: 100%; font-size: 14px; padding: 10px 14px; }
+            .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 10px; }
+            table { min-width: 750px; font-size: 12px; }
+            th { padding: 10px 8px; font-size: 11px; }
+            td { padding: 8px 6px; }
+            .score-cell { width: 24px; height: 24px; font-size: 11px; border-radius: 5px; }
+            .badge { font-size: 11px; padding: 2px 8px; }
+            .result-count { font-size: 12px; }
+        }
+
+        /* ══════ RESPONSIVE — SMALL MOBILE (max 360px) ══════ */
+        @media (max-width: 360px) {
+            .top-bar { padding: 10px 10px; }
+            .top-bar h1 { font-size: 14px; }
+            .stats { padding: 10px; gap: 6px; }
+            .stat-card { padding: 10px; }
+            .stat-value { font-size: 20px; }
+            .table-wrap { padding: 0 10px 10px; }
+            table { min-width: 700px; font-size: 11px; }
+        }
+
+        /* ══════ Safe area for notch/home indicator ══════ */
+        @supports (padding-bottom: env(safe-area-inset-bottom)) {
+            body { padding-bottom: env(safe-area-inset-bottom); }
+        }
+
+        @media print {
+            body { background: #fff; font-size: 11px; }
+            .top-bar .actions, .search-box, .no-print { display: none !important; }
+            .top-bar { border-bottom: 2px solid #000; padding: 8px 16px; position: static; box-shadow: none; }
+            .top-bar h1 { color: #000; font-size: 16px; }
+            .stats { padding: 8px 16px; gap: 8px; }
+            .stat-card { padding: 10px; border: 1px solid #ccc; opacity: 1; transform: none; }
+            .stat-value { font-size: 20px; color: #000; }
+            .table-wrap { padding: 0 16px 16px; }
+            table { font-size: 10px; }
+            th { background: #333; color: #fff; padding: 6px 4px; }
+            td { padding: 5px 4px; }
+            thead { position: static; }
+            @page { size: landscape; margin: 10mm; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <h1>💡 الشيت المركزي — نتائج مقياس الابتكار</h1>
+    <div class="actions">
+        <button class="btn btn-outline" onclick="loadData()">🔄 تحديث</button>
+        <button class="btn btn-primary" onclick="window.print()">🖨️ طباعة</button>
+    </div>
+</div>
+
+<div class="stats" id="stats-area">
+    <div class="stat-card" data-d="0">
+        <div class="stat-label">إجمالي المشاركين</div>
+        <div class="stat-value" id="st-total">—</div>
+    </div>
+    <div class="stat-card" data-d="1">
+        <div class="stat-label">متوسط الدرجات</div>
+        <div class="stat-value" id="st-avg">—</div>
+        <div class="stat-sub">من 15</div>
+    </div>
+    <div class="stat-card" data-d="2">
+        <div class="stat-label">المنظم</div>
+        <div class="stat-value" id="st-organizer">—</div>
+    </div>
+    <div class="stat-card" data-d="3">
+        <div class="stat-label">العملي</div>
+        <div class="stat-value" id="st-practical">—</div>
+    </div>
+    <div class="stat-card" data-d="4">
+        <div class="stat-label">المبتكر</div>
+        <div class="stat-value" id="st-innovator">—</div>
+    </div>
+</div>
+
+<div class="table-wrap">
+    <div class="table-header">
+        <h2>جميع النتائج</h2>
+        <input type="text" class="search-box no-print" placeholder="🔍 بحث بالاسم..." oninput="filterTable(this.value)">
+    </div>
+    <div class="result-count no-print" id="result-count"></div>
+    <div class="table-container" id="table-container">
+        <div class="loading-state">جارٍ التحميل...</div>
+    </div>
+</div>
+
+<script>
+const SKILLS = ['ربط الأفكار','التجريب والمخاطرة','الاستكشاف والبحث','التكيف والمرونة','الفضول والتساؤل'];
+let allAttempts = [];
+
+// ── Count-up ─────────────────────────────────────────────────────────────────
+function countUp(el, target, duration = 600) {
+    const isFloat = String(target).includes('.');
+    let start = 0;
+    const startTime = performance.now();
+    function tick(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const ease = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+        const current = start + (target - start) * ease;
+        el.textContent = isFloat ? current.toFixed(1) : Math.round(current);
+        if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+}
+
+// ── Reveal stat cards ────────────────────────────────────────────────────────
+function revealStats() {
+    document.querySelectorAll('.stat-card').forEach(card => {
+        const d = parseInt(card.dataset.d || 0);
+        setTimeout(() => card.classList.add('show'), 60 + d * 100);
+    });
+}
+
+// ── Load Data ────────────────────────────────────────────────────────────────
+async function loadData() {
+    try {
+        const statsRes = await fetch('/api/stats');
+        const stats = await statsRes.json();
+
+        revealStats();
+
+        // Count-up animation for stats
+        setTimeout(() => {
+            countUp(document.getElementById('st-total'), stats.total_attempts);
+            countUp(document.getElementById('st-avg'), stats.average_score);
+            countUp(document.getElementById('st-organizer'), stats.titles_distribution['المنظم'] || 0);
+            countUp(document.getElementById('st-practical'), stats.titles_distribution['العملي'] || 0);
+            countUp(document.getElementById('st-innovator'), stats.titles_distribution['المبتكر'] || 0);
+        }, 200);
+
+        const attRes = await fetch('/api/attempts?limit=500');
+        const attData = await attRes.json();
+        allAttempts = attData.attempts;
+        renderTable(allAttempts);
+    } catch(e) {
+        revealStats();
+        document.getElementById('table-container').innerHTML =
+            '<div class="empty-state"><div class="icon">⚠️</div><p>تعذر الاتصال بالسيرفر. تأكد من تشغيل server.py</p></div>';
+    }
+}
+
+function renderTable(data) {
+    const countEl = document.getElementById('result-count');
+    if (!data || data.length === 0) {
+        document.getElementById('table-container').innerHTML =
+            '<div class="empty-state"><div class="icon">📋</div><p>لا توجد نتائج بعد</p></div>';
+        countEl.textContent = '';
+        return;
+    }
+
+    countEl.textContent = `عرض ${data.length} نتيجة`;
+
+    let html = `<table>
+        <thead><tr>
+            <th>#</th><th>الاسم</th>
+            <th>ربط الأفكار</th><th>التجريب</th><th>الاستكشاف</th><th>التكيف</th><th>الفضول</th>
+            <th>المجموع</th><th>اللقب</th><th>مهارة التطوير</th><th>التاريخ</th>
+        </tr></thead><tbody>`;
+
+    data.forEach((a, i) => {
+        const bc = a.innovation_title === 'المنظم' ? 'badge-organizer' :
+                   a.innovation_title === 'العملي' ? 'badge-practical' : 'badge-innovator';
+        html += `<tr>
+            <td>${i+1}</td>
+            <td style="font-weight:600;white-space:nowrap">${a.full_name}</td>
+            <td><span class="score-cell sc-${a.q1_score}">${a.q1_score}</span></td>
+            <td><span class="score-cell sc-${a.q2_score}">${a.q2_score}</span></td>
+            <td><span class="score-cell sc-${a.q3_score}">${a.q3_score}</span></td>
+            <td><span class="score-cell sc-${a.q4_score}">${a.q4_score}</span></td>
+            <td><span class="score-cell sc-${a.q5_score}">${a.q5_score}</span></td>
+            <td style="font-weight:800;font-size:15px;color:var(--primary)">${a.total_score}/15</td>
+            <td><span class="badge ${bc}">${a.innovation_title}</span></td>
+            <td style="font-size:12px">${a.development_skill}</td>
+            <td style="font-size:11px;color:var(--text-light);white-space:nowrap">${formatDate(a.created_at)}</td>
+        </tr>`;
+    });
+
+    html += '</tbody></table>';
+    document.getElementById('table-container').innerHTML = html;
+}
+
+function filterTable(query) {
+    if (!query.trim()) { renderTable(allAttempts); return; }
+    const filtered = allAttempts.filter(a => a.full_name.includes(query));
+    renderTable(filtered);
+}
+
+function formatDate(dt) {
+    if (!dt) return '—';
+    try {
+        const d = new Date(dt);
+        return d.toLocaleDateString('ar-SA', {
+            year: 'numeric', month: '2-digit', day: '2-digit',
+            hour: '2-digit', minute: '2-digit'
+        });
+    } catch(e) { return dt; }
+}
+
+loadData();
+</script>
+
+</body>
+</html>
