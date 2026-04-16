@@ -5,54 +5,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مقياس الابتكار | Innovation Assessment</title>
     <style>
-        /* Effra font (خط الهوية الرسمي) — fallback: IBM Plex Sans Arabic */
-        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+        /* خط الهوية الرسمي: Frutiger LT Arabic (عربي) + A Jannat LT (إنجليزي)
+           Fallback مؤقت: Noto Sans Arabic حتى تتوفر ملفات الخطوط الرسمية */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap');
 
         :root {
-            /* === ألوان الهوية الرسمية === */
-            --color-dark-blue: #08395C;
-            --color-blue: #0076B1;
-            --color-yellow: #F5B335;
-            --color-orange: #FF5F2D;
-            --color-green: #00B982;
-            --color-turquoise: #00B1C7;
-            --color-red-purple: #AB2C72;
-            --color-grey: #90ABB6;
+            /* ═══ ألوان هوية قيم بنك التنمية الاجتماعية (SDB Values) ═══ */
+            /* القيم الخمس — لكل قيمة لون معتمد */
+            --c-win: #831B48;       /* Win Customers — نكسب العملاء (أرجواني) */
+            --c-empower: #16BC80;   /* Empower Growth — نمكّن النمو (أخضر) */
+            --c-show: #E96B56;      /* Show Accountability — نظهر المسؤولية (برتقالي) */
+            --c-drive: #E3A71E;     /* Drive Innovation — نقود الابتكار (أصفر ذهبي) ← لون المشروع الرئيسي */
+            --c-build: #006DBF;     /* Build Partnerships — نبني الشراكات (أزرق) */
 
-            /* === ألوان تطبيقية (مشتقة) === */
-            --primary: var(--color-dark-blue);
-            --primary-soft: #0F4770;
-            --accent: var(--color-blue);
-            --highlight: var(--color-turquoise);
+            /* ═══ تطبيق الخيار أ: المشروع تحت قيمة "نقود الابتكار" ═══ */
+            --primary: var(--c-drive);          /* اللون الرئيسي: أصفر ذهبي */
+            --primary-dark: #B8861A;            /* نسخة أغمق للحالات */
+            --primary-soft: #F5C65C;            /* نسخة أفتح */
+            --accent: var(--c-build);           /* الأزرق للعناوين والنصوص الأساسية */
+            --accent-dark: #004A85;             /* أزرق أغمق */
 
-            /* === خلفيات ونصوص === */
-            --bg: #F7F9FB;
-            --bg-subtle: #EEF3F7;
+            /* ═══ خلفيات ونصوص ═══ */
+            --bg: #FAFBFC;
+            --bg-subtle: #F3F5F8;
             --bg-card: #FFFFFF;
-            --text: var(--color-dark-blue);
-            --text-light: #5B7280;
-            --text-muted: #8A9AA7;
+            --text: var(--accent-dark);         /* النصوص بالأزرق الغامق لوضوح القراءة */
+            --text-light: #5B6B7A;
+            --text-muted: #8A96A3;
             --border: #DCE4EA;
-            --border-soft: #E8EDF1;
+            --border-soft: #EBEFF3;
 
-            /* === أحمر تحذيري فقط === */
+            /* ═══ أحمر تحذيري فقط (ليس من الهوية) ═══ */
             --danger: #C53030;
 
-            /* === حالات محدودة === */
-            --success: var(--color-green);
-            --warning: var(--color-yellow);
+            /* ═══ حالات ═══ */
+            --success: var(--c-empower);
+            --warning: var(--primary);
 
-            /* === ظلال وتنسيق === */
-            --shadow-sm: 0 1px 3px rgba(8, 57, 92, 0.06);
-            --shadow: 0 4px 16px rgba(8, 57, 92, 0.08);
-            --shadow-lg: 0 8px 28px rgba(8, 57, 92, 0.12);
+            /* ═══ ظلال ═══ */
+            --shadow-sm: 0 1px 3px rgba(0, 74, 133, 0.06);
+            --shadow: 0 4px 16px rgba(0, 74, 133, 0.08);
+            --shadow-lg: 0 8px 28px rgba(0, 74, 133, 0.12);
+            --shadow-yellow: 0 4px 14px rgba(227, 167, 30, 0.3);
+
             --radius-sm: 6px;
             --radius: 10px;
             --radius-lg: 14px;
             --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
-            /* === خطوط === */
-            --font: 'Effra', 'IBM Plex Sans Arabic', 'Segoe UI', system-ui, sans-serif;
+            /* ═══ الخطوط ═══ */
+            --font: 'Frutiger LT Arabic', 'A Jannat LT', 'Noto Sans Arabic', 'Segoe UI', system-ui, sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -93,12 +95,13 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 14px 22px;
+            padding: 12px 22px;
             background: #fff;
             border: 1px solid var(--border-soft);
             border-radius: var(--radius);
             box-shadow: var(--shadow-sm);
             margin-bottom: 8px;
+            gap: 12px;
         }
         .header .logo-icon {
             width: 44px; height: 44px;
@@ -107,16 +110,35 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
+            font-size: 24px;
             color: #fff;
             font-weight: 700;
+            position: relative;
+        }
+        /* لمبة Drive Innovation — رسم SVG صغير فوق الحرف D */
+        .header .logo-icon::after {
+            content: '';
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            width: 14px; height: 14px;
+            background: #fff;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
         }
         .header .logo-text {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 700;
-            color: var(--primary);
-            margin-right: 10px;
+            color: var(--accent);
             letter-spacing: -0.2px;
+        }
+        .header .logo-text small {
+            display: block;
+            font-size: 11px;
+            color: var(--text-light);
+            font-weight: 500;
+            margin-top: 2px;
+            letter-spacing: 0.3px;
         }
 
         .card {
@@ -134,7 +156,7 @@
             right: 24px;
             width: 60px;
             height: 3px;
-            background: var(--accent);
+            background: var(--primary);
             border-radius: 0 0 2px 2px;
         }
 
@@ -154,7 +176,7 @@
         .intro-title {
             font-size: 30px;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--accent-dark);
             margin-bottom: 14px;
             line-height: 1.5;
             letter-spacing: -0.3px;
@@ -164,7 +186,7 @@
             display: block;
             width: 48px;
             height: 3px;
-            background: var(--accent);
+            background: var(--primary);
             border-radius: 2px;
             margin-top: 14px;
         }
@@ -192,12 +214,12 @@
         .feature:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow);
-            border-color: var(--color-grey);
+            border-color: var(--border);
         }
         .feature-icon {
             width: 36px; height: 36px;
             margin: 0 auto 8px;
-            background: var(--accent);
+            background: var(--primary);
             color: #fff;
             border-radius: 50%;
             display: inline-flex;
@@ -205,7 +227,7 @@
             justify-content: center;
             font-size: 18px;
         }
-        .feature-text { font-size: 14px; color: var(--primary); font-weight: 500; }
+        .feature-text { font-size: 14px; color: var(--accent-dark); font-weight: 500; }
 
         /* ── Buttons ── */
         .btn {
@@ -226,13 +248,16 @@
             overflow: hidden;
         }
         .btn-primary {
-            background: var(--accent);
-            color: #fff;
-            box-shadow: 0 3px 10px rgba(0, 118, 177, 0.22);
+            background: var(--primary);
+            color: var(--accent-dark);
+            box-shadow: var(--shadow-yellow);
+            font-weight: 700;
         }
         .btn-primary:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(8, 57, 92, 0.28);
+            background: var(--primary-dark);
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(227, 167, 30, 0.4);
         }
         .btn-primary:active:not(:disabled) { transform: translateY(0); }
         .btn-primary:disabled {
@@ -251,10 +276,10 @@
         }
         .btn-secondary {
             background: var(--bg);
-            color: var(--primary);
-            border: 2px solid var(--primary);
+            color: var(--accent);
+            border: 2px solid var(--accent);
         }
-        .btn-secondary:hover { background: rgba(8, 57, 92, 0.05); }
+        .btn-secondary:hover { background: rgba(0, 109, 191, 0.05); }
 
         /* ── Form ── */
         .form-group { margin-bottom: 20px; }
@@ -276,21 +301,21 @@
             transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
             background: #fff;
             outline: none;
-            color: var(--primary);
+            color: var(--accent-dark);
             font-weight: 500;
         }
         .form-group input:focus {
-            border-color: var(--accent);
+            border-color: var(--primary);
             background: #fff;
-            box-shadow: 0 0 0 3px rgba(0, 118, 177, 0.12);
+            box-shadow: 0 0 0 3px rgba(227, 167, 30, 0.2);
         }
         .form-group input.error {
             border-color: var(--danger);
             box-shadow: 0 0 0 3px rgba(197, 48, 48, 0.1);
         }
         .form-group input.valid {
-            border-color: var(--color-green);
-            box-shadow: 0 0 0 3px rgba(0, 185, 130, 0.1);
+            border-color: var(--c-empower);
+            box-shadow: 0 0 0 3px rgba(22, 188, 128, 0.12);
         }
 
         .validation-msg {
@@ -303,7 +328,7 @@
         .validation-msg.error-msg { color: #EF4444; }
         .validation-msg.success-msg { color: var(--success); }
 
-        .section-title { font-size: 22px; font-weight: 700; color: var(--primary); margin-bottom: 6px; letter-spacing: -0.2px; }
+        .section-title { font-size: 22px; font-weight: 700; color: var(--accent-dark); margin-bottom: 6px; letter-spacing: -0.2px; }
         .section-subtitle { font-size: 15px; color: var(--text-light); margin-bottom: 28px; }
 
         /* ── Progress ── */
@@ -315,7 +340,7 @@
             margin-bottom: 10px;
         }
         .progress-label { font-size: 14px; font-weight: 500; color: var(--text-light); }
-        .progress-count { font-size: 14px; font-weight: 600; color: var(--primary); }
+        .progress-count { font-size: 14px; font-weight: 600; color: var(--primary-dark); }
         .progress-bar {
             height: 6px;
             background: var(--bg-subtle);
@@ -325,7 +350,7 @@
         }
         .progress-fill {
             height: 100%;
-            background: var(--accent);
+            background: var(--primary);
             border-radius: 4px;
             transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
@@ -338,8 +363,8 @@
             gap: 6px;
             font-size: 13px;
             font-weight: 700;
-            color: var(--primary);
-            background: rgba(0, 118, 177, 0.08);
+            color: var(--primary-dark);
+            background: rgba(227, 167, 30, 0.12);
             padding: 6px 14px;
             border-radius: 20px;
             margin-bottom: 16px;
@@ -349,24 +374,24 @@
             font-weight: 600;
             line-height: 1.75;
             margin-bottom: 24px;
-            color: var(--primary);
+            color: var(--accent-dark);
             letter-spacing: -0.1px;
         }
 
-        /* Review badge — شارة المراجعة بلون Yellow من الهوية */
+        /* شارة المراجعة — لون Show Accountability (برتقالي) لأنه تحذير لطيف */
         .review-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
             font-size: 12px;
             font-weight: 600;
-            color: #7A4A00;
-            background: rgba(245, 179, 53, 0.18);
+            color: #8A3020;
+            background: rgba(233, 107, 86, 0.15);
             padding: 5px 14px;
             border-radius: 20px;
             margin-bottom: 16px;
             margin-right: 8px;
-            border: 1px solid rgba(245, 179, 53, 0.45);
+            border: 1px solid rgba(233, 107, 86, 0.35);
         }
 
         .options-list { display: flex; flex-direction: column; gap: 12px; }
@@ -381,17 +406,17 @@
             gap: 14px;
         }
         .option-item:hover:not(.readonly) {
-            border-color: var(--accent);
-            background: rgba(0, 118, 177, 0.03);
+            border-color: var(--primary);
+            background: rgba(227, 167, 30, 0.04);
         }
         .option-item.selected {
-            border-color: var(--accent);
-            background: rgba(0, 118, 177, 0.06);
-            box-shadow: 0 2px 10px rgba(0, 118, 177, 0.1);
+            border-color: var(--primary);
+            background: rgba(227, 167, 30, 0.08);
+            box-shadow: 0 2px 10px rgba(227, 167, 30, 0.15);
         }
         .option-item.selected .option-letter {
-            background: var(--accent);
-            color: #fff;
+            background: var(--primary);
+            color: var(--accent-dark);
             transform: scale(1.05);
         }
         .option-item.just-selected {
@@ -417,9 +442,9 @@
         .option-item.readonly.selected {
             opacity: 1;
             filter: none;
-            border-color: var(--accent);
-            background: rgba(0, 118, 177, 0.06);
-            box-shadow: 0 2px 10px rgba(0, 118, 177, 0.08);
+            border-color: var(--primary);
+            background: rgba(227, 167, 30, 0.08);
+            box-shadow: 0 2px 10px rgba(227, 167, 30, 0.12);
             cursor: default;
             position: relative;
         }
@@ -430,7 +455,7 @@
             top: 50%;
             transform: translateY(-50%);
             width: 24px; height: 24px;
-            background: var(--success);
+            background: var(--c-empower);
             color: #fff;
             border-radius: 50%;
             display: flex;
@@ -440,8 +465,8 @@
             font-weight: 800;
         }
         .option-item.readonly.selected:hover {
-            border-color: var(--accent);
-            background: rgba(0, 118, 177, 0.06);
+            border-color: var(--primary);
+            background: rgba(227, 167, 30, 0.08);
         }
 
         .option-letter {
@@ -453,7 +478,7 @@
             justify-content: center;
             font-weight: 700;
             font-size: 15px;
-            color: var(--primary);
+            color: var(--accent-dark);
             transition: all 0.25s ease;
             border: 1px solid var(--border-soft);
         }
@@ -485,7 +510,7 @@
             position: absolute;
             inset: -3px;
             border: 3px solid transparent;
-            border-top-color: var(--accent);
+            border-top-color: var(--primary);
             border-radius: 50%;
             animation: spinSmooth 0.9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
@@ -494,7 +519,7 @@
             position: absolute;
             inset: 4px;
             border: 2px solid transparent;
-            border-bottom-color: var(--primary);
+            border-bottom-color: var(--accent);
             border-radius: 50%;
             animation: spinSmooth 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite reverse;
         }
@@ -528,7 +553,7 @@
             border-radius: 50%;
             background: var(--primary);
             margin-bottom: 16px;
-            box-shadow: 0 6px 22px rgba(8, 57, 92, 0.2);
+            box-shadow: var(--shadow-yellow);
             position: relative;
         }
         .result-badge::after {
@@ -537,10 +562,10 @@
             inset: -6px;
             border: 2px solid var(--accent);
             border-radius: 50%;
-            opacity: 0.35;
+            opacity: 0.45;
         }
-        .result-badge .score-big { font-size: 34px; font-weight: 700; color: #fff; line-height: 1; }
-        .result-badge .score-max { font-size: 13px; color: rgba(255,255,255,0.75); margin-top: 2px; }
+        .result-badge .score-big { font-size: 34px; font-weight: 700; color: var(--accent-dark); line-height: 1; }
+        .result-badge .score-max { font-size: 13px; color: rgba(0, 74, 133, 0.75); margin-top: 2px; }
 
         .result-name { font-size: 16px; color: var(--text-light); margin-bottom: 10px; font-weight: 500; }
 
@@ -560,12 +585,12 @@
             right: 0;
             width: 4px;
             height: 100%;
-            background: var(--accent);
+            background: var(--primary);
         }
         .result-title {
             font-size: 32px;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--accent-dark);
             margin-bottom: 8px;
             letter-spacing: -0.3px;
         }
@@ -594,9 +619,10 @@
             transition: transform 0.2s ease;
         }
         .score-dot:hover { transform: scale(1.08); }
-        .score-dot.low { background: var(--color-orange); }
-        .score-dot.mid { background: var(--color-yellow); color: #5A3A00; }
-        .score-dot.high { background: var(--color-turquoise); }
+        /* نقاط المهارات — ألوان الهوية الخمس */
+        .score-dot.low { background: var(--c-show); }         /* برتقالي (Show Accountability) */
+        .score-dot.mid { background: var(--primary); color: var(--accent-dark); }  /* أصفر (Innovation) */
+        .score-dot.high { background: var(--c-empower); }     /* أخضر (Empower Growth) */
 
         .result-section {
             background: #fff;
@@ -618,13 +644,13 @@
         }
         .result-section-text { font-size: 15px; line-height: 1.85; color: var(--text); font-weight: 400; }
 
-        /* إبراز المهارة — لون Turquoise من الهوية */
+        /* إبراز المهارة — لون Innovation Yellow (لأن المشروع يقيس الابتكار) */
         .skill-highlight {
-            background: rgba(0, 177, 199, 0.05);
-            border: 1px solid rgba(0, 177, 199, 0.2);
-            border-right: 4px solid var(--color-turquoise);
+            background: rgba(227, 167, 30, 0.06);
+            border: 1px solid rgba(227, 167, 30, 0.25);
+            border-right: 4px solid var(--primary);
         }
-        .skill-highlight .result-section-title { color: var(--color-turquoise); }
+        .skill-highlight .result-section-title { color: var(--primary-dark); }
 
         .result-actions {
             display: flex;
@@ -780,8 +806,11 @@
     <div id="step-intro" class="step active">
         <div class="header">
             <div class="logo-wrap reveal" data-d="0">
-                <div class="logo-icon">IA</div>
-                <span class="logo-text">مقياس الابتكار</span>
+                <div class="logo-icon">D</div>
+                <span class="logo-text">
+                    نقود الابتكار
+                    <small>Drive Innovation</small>
+                </span>
             </div>
         </div>
         <div class="card">
@@ -814,8 +843,11 @@
     <div id="step-info" class="step">
         <div class="header">
             <div class="logo-wrap">
-                <div class="logo-icon">IA</div>
-                <span class="logo-text">مقياس الابتكار</span>
+                <div class="logo-icon">D</div>
+                <span class="logo-text">
+                    نقود الابتكار
+                    <small>Drive Innovation</small>
+                </span>
             </div>
         </div>
         <div class="card">
@@ -836,8 +868,11 @@
     <div id="step-questions" class="step">
         <div class="header">
             <div class="logo-wrap">
-                <div class="logo-icon">IA</div>
-                <span class="logo-text">مقياس الابتكار</span>
+                <div class="logo-icon">D</div>
+                <span class="logo-text">
+                    نقود الابتكار
+                    <small>Drive Innovation</small>
+                </span>
             </div>
         </div>
         <div class="card">

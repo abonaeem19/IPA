@@ -5,48 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الشيت المركزي — مقياس الابتكار</title>
     <style>
-        /* Effra font (خط الهوية الرسمي) — fallback: IBM Plex Sans Arabic */
-        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+        /* خط الهوية الرسمي: Frutiger LT Arabic (عربي) + A Jannat LT (إنجليزي)
+           Fallback مؤقت: Noto Sans Arabic */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap');
 
         :root {
-            /* === ألوان الهوية الرسمية === */
-            --color-dark-blue: #08395C;
-            --color-blue: #0076B1;
-            --color-yellow: #F5B335;
-            --color-orange: #FF5F2D;
-            --color-green: #00B982;
-            --color-turquoise: #00B1C7;
-            --color-red-purple: #AB2C72;
-            --color-grey: #90ABB6;
+            /* ═══ ألوان هوية قيم SDB ═══ */
+            --c-win: #831B48;
+            --c-empower: #16BC80;
+            --c-show: #E96B56;
+            --c-drive: #E3A71E;     /* Drive Innovation — لون المشروع الرئيسي */
+            --c-build: #006DBF;
 
-            /* === ألوان تطبيقية === */
-            --primary: var(--color-dark-blue);
-            --accent: var(--color-blue);
-            --highlight: var(--color-turquoise);
+            /* ═══ تطبيق Drive Innovation ═══ */
+            --primary: var(--c-drive);
+            --primary-dark: #B8861A;
+            --accent: var(--c-build);
+            --accent-dark: #004A85;
 
-            /* === خلفيات ونصوص === */
-            --bg: #F7F9FB;
-            --bg-subtle: #EEF3F7;
+            --bg: #FAFBFC;
+            --bg-subtle: #F3F5F8;
             --bg-card: #FFFFFF;
-            --text: var(--color-dark-blue);
-            --text-light: #5B7280;
-            --text-muted: #8A9AA7;
+            --text: var(--accent-dark);
+            --text-light: #5B6B7A;
+            --text-muted: #8A96A3;
             --border: #DCE4EA;
-            --border-soft: #E8EDF1;
+            --border-soft: #EBEFF3;
 
-            /* === أحمر تحذيري فقط === */
             --danger: #C53030;
-            --success: var(--color-green);
+            --success: var(--c-empower);
 
-            /* === ظلال وتنسيق === */
-            --shadow-sm: 0 1px 3px rgba(8, 57, 92, 0.06);
-            --shadow: 0 4px 16px rgba(8, 57, 92, 0.08);
+            --shadow-sm: 0 1px 3px rgba(0, 74, 133, 0.06);
+            --shadow: 0 4px 16px rgba(0, 74, 133, 0.08);
+            --shadow-yellow: 0 4px 14px rgba(227, 167, 30, 0.3);
+
             --radius-sm: 6px;
             --radius: 10px;
             --radius-lg: 14px;
             --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 
-            --font: 'Effra', 'IBM Plex Sans Arabic', 'Segoe UI', system-ui, sans-serif;
+            --font: 'Frutiger LT Arabic', 'A Jannat LT', 'Noto Sans Arabic', 'Segoe UI', system-ui, sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -59,7 +57,7 @@
         }
 
         .top-bar {
-            background: var(--primary);
+            background: var(--accent-dark);
             color: #fff;
             padding: 14px 32px;
             display: flex;
@@ -70,8 +68,8 @@
             position: sticky;
             top: 0;
             z-index: 10;
-            box-shadow: 0 2px 10px rgba(8, 57, 92, 0.15);
-            border-bottom: 3px solid var(--accent);
+            box-shadow: 0 2px 10px rgba(0, 74, 133, 0.15);
+            border-bottom: 3px solid var(--primary);
         }
         .top-bar h1 {
             font-size: 19px;
@@ -83,12 +81,12 @@
             letter-spacing: -0.2px;
         }
         .top-bar h1::before {
-            content: 'IA';
-            background: #fff;
-            color: var(--primary);
+            content: 'D';
+            background: var(--primary);
+            color: var(--accent-dark);
             font-weight: 700;
             font-size: 14px;
-            padding: 6px 10px;
+            padding: 6px 12px;
             border-radius: var(--radius-sm);
             letter-spacing: 0;
         }
@@ -104,10 +102,10 @@
             cursor: pointer;
             transition: all var(--transition);
         }
-        .btn-primary { background: var(--accent); color: #fff; }
-        .btn-primary:hover { background: #005d8a; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0, 118, 177, 0.25); }
-        .btn-outline { background: #fff; color: var(--primary); border: 1px solid #fff; }
-        .btn-outline:hover { background: rgba(255, 255, 255, 0.9); transform: translateY(-1px); }
+        .btn-primary { background: var(--primary); color: var(--accent-dark); font-weight: 700; }
+        .btn-primary:hover { background: var(--primary-dark); color: #fff; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(227, 167, 30, 0.35); }
+        .btn-outline { background: transparent; color: #fff; border: 1px solid rgba(255, 255, 255, 0.4); }
+        .btn-outline:hover { background: rgba(255, 255, 255, 0.12); border-color: #fff; transform: translateY(-1px); }
         .btn-danger { background: var(--danger); color: #fff; }
         .btn-danger:hover { background: #9B1C1C; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(197, 48, 48, 0.22); }
         .del-btn {
@@ -142,6 +140,7 @@
             position: relative;
             overflow: hidden;
         }
+        /* الشريط الجانبي الافتراضي = Drive Innovation (الأصفر الذهبي) */
         .stat-card::before {
             content: '';
             position: absolute;
@@ -149,15 +148,16 @@
             right: 0;
             width: 3px;
             height: 100%;
-            background: var(--accent);
+            background: var(--primary);
         }
         .stat-card.show { opacity: 1; transform: translateY(0); }
         .stat-card:hover { box-shadow: var(--shadow); }
-        .stat-card.tint-yellow::before { background: var(--color-yellow); }
-        .stat-card.tint-turquoise::before { background: var(--color-turquoise); }
-        .stat-card.tint-red-purple::before { background: var(--color-red-purple); }
+        /* تمييز البطاقات — كل لقب بلون قيمة مختلفة من الهوية */
+        .stat-card.tint-organizer::before { background: var(--c-build); }       /* المنظم → Build Partnerships (أزرق) */
+        .stat-card.tint-practical::before { background: var(--c-empower); }     /* العملي → Empower Growth (أخضر) */
+        .stat-card.tint-innovator::before { background: var(--primary); }       /* المبتكر → Drive Innovation (أصفر) */
         .stat-label { font-size: 13px; color: var(--text-light); margin-bottom: 6px; font-weight: 500; }
-        .stat-value { font-size: 28px; font-weight: 700; color: var(--primary); letter-spacing: -0.3px; }
+        .stat-value { font-size: 28px; font-weight: 700; color: var(--accent-dark); letter-spacing: -0.3px; }
         .stat-sub { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
 
         /* Table */
@@ -170,7 +170,7 @@
             flex-wrap: wrap;
             gap: 8px;
         }
-        .table-header h2 { font-size: 18px; font-weight: 600; color: var(--primary); letter-spacing: -0.2px; }
+        .table-header h2 { font-size: 18px; font-weight: 600; color: var(--accent-dark); letter-spacing: -0.2px; }
         .search-box {
             padding: 10px 16px;
             border: 1px solid var(--border);
@@ -181,11 +181,11 @@
             outline: none;
             transition: border-color var(--transition), box-shadow var(--transition);
             background: #fff;
-            color: var(--primary);
+            color: var(--accent-dark);
         }
         .search-box:focus {
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(0, 118, 177, 0.12);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(227, 167, 30, 0.2);
         }
 
         .table-container {
@@ -201,7 +201,7 @@
             font-size: 13px;
         }
         thead {
-            background: var(--primary);
+            background: var(--accent-dark);
             color: #fff;
             position: sticky;
             top: 0;
@@ -222,7 +222,7 @@
             vertical-align: middle;
             transition: background 0.15s ease;
         }
-        tr:hover td { background: rgba(0, 118, 177, 0.035); }
+        tr:hover td { background: rgba(227, 167, 30, 0.04); }
 
         .badge {
             display: inline-block;
@@ -231,10 +231,10 @@
             font-size: 12px;
             font-weight: 600;
         }
-        /* ألقاب — ألوان الهوية */
-        .badge-organizer { background: rgba(8, 57, 92, 0.1); color: var(--primary); }
-        .badge-practical { background: rgba(245, 179, 53, 0.18); color: #7A4A00; }
-        .badge-innovator { background: rgba(0, 177, 199, 0.15); color: #006578; }
+        /* الألقاب — كل لقب بلون قيمة من الهوية */
+        .badge-organizer { background: rgba(0, 109, 191, 0.12); color: var(--accent-dark); }  /* Build Partnerships (أزرق) */
+        .badge-practical { background: rgba(22, 188, 128, 0.14); color: #0A5E3F; }            /* Empower Growth (أخضر) */
+        .badge-innovator { background: rgba(227, 167, 30, 0.18); color: #7A5A00; }            /* Drive Innovation (أصفر) */
 
         .score-cell {
             display: inline-flex;
@@ -246,10 +246,10 @@
             font-size: 13px;
             color: #fff;
         }
-        /* نقاط — Orange (منخفض) / Yellow (متوسط) / Turquoise (مرتفع) */
-        .sc-1 { background: var(--color-orange); }
-        .sc-2 { background: var(--color-yellow); color: #5A3A00; }
-        .sc-3 { background: var(--color-turquoise); }
+        /* نقاط — ألوان القيم: Show (برتقالي) / Drive (أصفر) / Empower (أخضر) */
+        .sc-1 { background: var(--c-show); }
+        .sc-2 { background: var(--primary); color: var(--accent-dark); }
+        .sc-3 { background: var(--c-empower); }
 
         .empty-state {
             text-align: center;
@@ -322,24 +322,24 @@
         }
 
         @media print {
-            body { background: #fff; font-size: 11px; color: var(--primary); }
+            body { background: #fff; font-size: 11px; color: var(--accent-dark); }
             .top-bar .actions, .search-box, .no-print { display: none !important; }
             .top-bar {
                 background: #fff;
-                color: var(--primary);
-                border-bottom: 3px solid var(--accent);
+                color: var(--accent-dark);
+                border-bottom: 3px solid var(--primary);
                 padding: 8px 16px;
                 position: static;
                 box-shadow: none;
             }
-            .top-bar h1 { color: var(--primary); font-size: 16px; }
-            .top-bar h1::before { background: var(--primary); color: #fff; }
+            .top-bar h1 { color: var(--accent-dark); font-size: 16px; }
+            .top-bar h1::before { background: var(--primary); color: var(--accent-dark); }
             .stats { padding: 8px 16px; gap: 8px; }
             .stat-card { padding: 10px; border: 1px solid var(--border); opacity: 1; transform: none; box-shadow: none; }
-            .stat-value { font-size: 20px; color: var(--primary); }
+            .stat-value { font-size: 20px; color: var(--accent-dark); }
             .table-wrap { padding: 0 16px 16px; }
             table { font-size: 10px; }
-            th { background: var(--primary); color: #fff; padding: 6px 4px; }
+            th { background: var(--accent-dark); color: #fff; padding: 6px 4px; }
             td { padding: 5px 4px; }
             thead { position: static; }
             @page { size: landscape; margin: 10mm; }
