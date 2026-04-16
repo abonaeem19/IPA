@@ -5,29 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مقياس الابتكار | Innovation Assessment</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap');
+        /* Effra font (خط الهوية الرسمي) — fallback: IBM Plex Sans Arabic */
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
 
         :root {
-            --primary: #6C3CE1;
-            --primary-light: #8B5CF6;
-            --primary-dark: #5427B8;
-            --accent: #F59E0B;
-            --accent-light: #FCD34D;
-            --bg: #F8F7FF;
+            /* === ألوان الهوية الرسمية === */
+            --color-dark-blue: #08395C;
+            --color-blue: #0076B1;
+            --color-yellow: #F5B335;
+            --color-orange: #FF5F2D;
+            --color-green: #00B982;
+            --color-turquoise: #00B1C7;
+            --color-red-purple: #AB2C72;
+            --color-grey: #90ABB6;
+
+            /* === ألوان تطبيقية (مشتقة) === */
+            --primary: var(--color-dark-blue);
+            --primary-soft: #0F4770;
+            --accent: var(--color-blue);
+            --highlight: var(--color-turquoise);
+
+            /* === خلفيات ونصوص === */
+            --bg: #F7F9FB;
+            --bg-subtle: #EEF3F7;
             --bg-card: #FFFFFF;
-            --text: #1E1B3A;
-            --text-light: #6B7280;
-            --success: #10B981;
-            --border: #E5E7EB;
-            --shadow: 0 4px 24px rgba(108, 60, 225, 0.08);
-            --radius: 16px;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --text: var(--color-dark-blue);
+            --text-light: #5B7280;
+            --text-muted: #8A9AA7;
+            --border: #DCE4EA;
+            --border-soft: #E8EDF1;
+
+            /* === أحمر تحذيري فقط === */
+            --danger: #C53030;
+
+            /* === حالات محدودة === */
+            --success: var(--color-green);
+            --warning: var(--color-yellow);
+
+            /* === ظلال وتنسيق === */
+            --shadow-sm: 0 1px 3px rgba(8, 57, 92, 0.06);
+            --shadow: 0 4px 16px rgba(8, 57, 92, 0.08);
+            --shadow-lg: 0 8px 28px rgba(8, 57, 92, 0.12);
+            --radius-sm: 6px;
+            --radius: 10px;
+            --radius-lg: 14px;
+            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+            /* === خطوط === */
+            --font: 'Effra', 'IBM Plex Sans Arabic', 'Segoe UI', system-ui, sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Tajawal', sans-serif;
+            font-family: var(--font);
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
@@ -39,8 +70,8 @@
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
             background:
-                radial-gradient(ellipse 60% 50% at 15% 10%, rgba(108,60,225,0.05) 0%, transparent 60%),
-                radial-gradient(ellipse 50% 40% at 85% 85%, rgba(245,158,11,0.04) 0%, transparent 60%);
+                radial-gradient(ellipse 70% 50% at 10% 0%, rgba(8, 57, 92, 0.04) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 95% 100%, rgba(0, 118, 177, 0.03) 0%, transparent 60%);
             pointer-events: none;
             z-index: 0;
         }
@@ -57,25 +88,54 @@
             justify-content: center;
         }
 
-        .header { text-align: center; margin-bottom: 8px; }
-        .header .logo-icon {
-            width: 64px; height: 64px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            border-radius: 20px;
+        .header { text-align: center; margin-bottom: 16px; }
+        .header .logo-wrap {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 32px;
-            margin-bottom: 12px;
-            box-shadow: 0 8px 24px rgba(108,60,225,0.25);
+            padding: 14px 22px;
+            background: #fff;
+            border: 1px solid var(--border-soft);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 8px;
+        }
+        .header .logo-icon {
+            width: 44px; height: 44px;
+            background: var(--primary);
+            border-radius: var(--radius-sm);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: #fff;
+            font-weight: 700;
+        }
+        .header .logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-right: 10px;
+            letter-spacing: -0.2px;
         }
 
         .card {
             background: var(--bg-card);
-            border-radius: var(--radius);
+            border-radius: var(--radius-lg);
             padding: 40px 36px;
             box-shadow: var(--shadow);
-            border: 1px solid var(--border);
+            border: 1px solid var(--border-soft);
+            position: relative;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 24px;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 0 0 2px 2px;
         }
 
         /* ── Step transitions ── */
@@ -92,14 +152,21 @@
 
         /* ── INTRO PAGE ── */
         .intro-title {
-            font-size: 32px;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 16px;
-            line-height: 1.4;
+            font-size: 30px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 14px;
+            line-height: 1.5;
+            letter-spacing: -0.3px;
+        }
+        .intro-title::after {
+            content: '';
+            display: block;
+            width: 48px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+            margin-top: 14px;
         }
         .intro-desc {
             font-size: 17px;
@@ -110,23 +177,35 @@
         .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 16px;
+            gap: 14px;
             margin-bottom: 32px;
         }
         .feature {
-            background: var(--bg);
-            border-radius: 12px;
-            padding: 20px 16px;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-soft);
+            border-radius: var(--radius);
+            padding: 18px 14px;
             text-align: center;
-            transition: transform var(--transition), box-shadow var(--transition);
+            transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
             cursor: default;
         }
         .feature:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(108,60,225,0.1);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+            border-color: var(--color-grey);
         }
-        .feature-icon { font-size: 28px; margin-bottom: 8px; }
-        .feature-text { font-size: 14px; color: var(--text-light); font-weight: 500; }
+        .feature-icon {
+            width: 36px; height: 36px;
+            margin: 0 auto 8px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        .feature-text { font-size: 14px; color: var(--primary); font-weight: 500; }
 
         /* ── Buttons ── */
         .btn {
@@ -134,12 +213,12 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            padding: 14px 40px;
+            padding: 14px 32px;
             border: none;
-            border-radius: 12px;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 17px;
-            font-weight: 700;
+            border-radius: var(--radius);
+            font-family: var(--font);
+            font-size: 16px;
+            font-weight: 600;
             cursor: pointer;
             transition: all var(--transition);
             width: 100%;
@@ -147,13 +226,13 @@
             overflow: hidden;
         }
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            background: var(--accent);
             color: #fff;
-            box-shadow: 0 4px 16px rgba(108,60,225,0.3);
+            box-shadow: 0 3px 10px rgba(0, 118, 177, 0.22);
         }
         .btn-primary:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(108,60,225,0.4);
+            box-shadow: 0 6px 20px rgba(8, 57, 92, 0.28);
         }
         .btn-primary:active:not(:disabled) { transform: translateY(0); }
         .btn-primary:disabled {
@@ -175,7 +254,7 @@
             color: var(--primary);
             border: 2px solid var(--primary);
         }
-        .btn-secondary:hover { background: rgba(108,60,225,0.06); }
+        .btn-secondary:hover { background: rgba(8, 57, 92, 0.05); }
 
         /* ── Form ── */
         .form-group { margin-bottom: 20px; }
@@ -190,26 +269,28 @@
         .form-group input {
             width: 100%;
             padding: 14px 16px;
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            font-family: 'Tajawal', sans-serif;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-family: var(--font);
             font-size: 16px;
             transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
-            background: var(--bg);
+            background: #fff;
             outline: none;
+            color: var(--primary);
+            font-weight: 500;
         }
         .form-group input:focus {
-            border-color: var(--primary);
+            border-color: var(--accent);
             background: #fff;
-            box-shadow: 0 0 0 3px rgba(108,60,225,0.1);
+            box-shadow: 0 0 0 3px rgba(0, 118, 177, 0.12);
         }
         .form-group input.error {
-            border-color: #EF4444;
-            box-shadow: 0 0 0 3px rgba(239,68,68,0.08);
+            border-color: var(--danger);
+            box-shadow: 0 0 0 3px rgba(197, 48, 48, 0.1);
         }
         .form-group input.valid {
-            border-color: var(--success);
-            box-shadow: 0 0 0 3px rgba(16,185,129,0.08);
+            border-color: var(--color-green);
+            box-shadow: 0 0 0 3px rgba(0, 185, 130, 0.1);
         }
 
         .validation-msg {
@@ -222,7 +303,7 @@
         .validation-msg.error-msg { color: #EF4444; }
         .validation-msg.success-msg { color: var(--success); }
 
-        .section-title { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+        .section-title { font-size: 22px; font-weight: 700; color: var(--primary); margin-bottom: 6px; letter-spacing: -0.2px; }
         .section-subtitle { font-size: 15px; color: var(--text-light); margin-bottom: 28px; }
 
         /* ── Progress ── */
@@ -233,17 +314,18 @@
             align-items: center;
             margin-bottom: 10px;
         }
-        .progress-label { font-size: 14px; font-weight: 600; color: var(--text-light); }
-        .progress-count { font-size: 14px; font-weight: 700; color: var(--primary); }
+        .progress-label { font-size: 14px; font-weight: 500; color: var(--text-light); }
+        .progress-count { font-size: 14px; font-weight: 600; color: var(--primary); }
         .progress-bar {
-            height: 8px;
-            background: #E8E5F3;
+            height: 6px;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-soft);
             border-radius: 4px;
             overflow: hidden;
         }
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
+            background: var(--accent);
             border-radius: 4px;
             transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
@@ -257,33 +339,34 @@
             font-size: 13px;
             font-weight: 700;
             color: var(--primary);
-            background: rgba(108,60,225,0.08);
+            background: rgba(0, 118, 177, 0.08);
             padding: 6px 14px;
             border-radius: 20px;
             margin-bottom: 16px;
         }
         .question-text {
             font-size: 19px;
-            font-weight: 700;
-            line-height: 1.7;
+            font-weight: 600;
+            line-height: 1.75;
             margin-bottom: 24px;
-            color: var(--text);
+            color: var(--primary);
+            letter-spacing: -0.1px;
         }
 
-        /* Review badge */
+        /* Review badge — شارة المراجعة بلون Yellow من الهوية */
         .review-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
             font-size: 12px;
-            font-weight: 700;
-            color: #92400E;
-            background: #FEF3C7;
+            font-weight: 600;
+            color: #7A4A00;
+            background: rgba(245, 179, 53, 0.18);
             padding: 5px 14px;
             border-radius: 20px;
             margin-bottom: 16px;
             margin-right: 8px;
-            border: 1px solid #FDE68A;
+            border: 1px solid rgba(245, 179, 53, 0.45);
         }
 
         .options-list { display: flex; flex-direction: column; gap: 12px; }
@@ -298,16 +381,16 @@
             gap: 14px;
         }
         .option-item:hover:not(.readonly) {
-            border-color: var(--primary-light);
-            background: rgba(108,60,225,0.02);
+            border-color: var(--accent);
+            background: rgba(0, 118, 177, 0.03);
         }
         .option-item.selected {
-            border-color: var(--primary);
-            background: rgba(108,60,225,0.05);
-            box-shadow: 0 2px 12px rgba(108,60,225,0.1);
+            border-color: var(--accent);
+            background: rgba(0, 118, 177, 0.06);
+            box-shadow: 0 2px 10px rgba(0, 118, 177, 0.1);
         }
         .option-item.selected .option-letter {
-            background: var(--primary);
+            background: var(--accent);
             color: #fff;
             transform: scale(1.05);
         }
@@ -334,9 +417,9 @@
         .option-item.readonly.selected {
             opacity: 1;
             filter: none;
-            border-color: var(--primary);
-            background: rgba(108,60,225,0.05);
-            box-shadow: 0 2px 12px rgba(108,60,225,0.08);
+            border-color: var(--accent);
+            background: rgba(0, 118, 177, 0.06);
+            box-shadow: 0 2px 10px rgba(0, 118, 177, 0.08);
             cursor: default;
             position: relative;
         }
@@ -357,27 +440,29 @@
             font-weight: 800;
         }
         .option-item.readonly.selected:hover {
-            border-color: var(--primary);
-            background: rgba(108,60,225,0.05);
+            border-color: var(--accent);
+            background: rgba(0, 118, 177, 0.06);
         }
 
         .option-letter {
             min-width: 36px; height: 36px;
-            border-radius: 10px;
-            background: var(--bg);
+            border-radius: var(--radius-sm);
+            background: var(--bg-subtle);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 800;
+            font-weight: 700;
             font-size: 15px;
             color: var(--primary);
             transition: all 0.25s ease;
+            border: 1px solid var(--border-soft);
         }
         .option-text {
             font-size: 15px;
             line-height: 1.7;
             color: var(--text);
             padding-top: 6px;
+            font-weight: 400;
         }
 
         .question-nav {
@@ -390,7 +475,7 @@
         /* ── Loading ── */
         .loading-spinner {
             width: 52px; height: 52px;
-            border: 3px solid #E8E5F3;
+            border: 3px solid var(--bg-subtle);
             border-radius: 50%;
             position: relative;
             margin: 0 auto 20px;
@@ -400,7 +485,7 @@
             position: absolute;
             inset: -3px;
             border: 3px solid transparent;
-            border-top-color: var(--primary);
+            border-top-color: var(--accent);
             border-radius: 50%;
             animation: spinSmooth 0.9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
@@ -409,7 +494,7 @@
             position: absolute;
             inset: 4px;
             border: 2px solid transparent;
-            border-bottom-color: var(--accent);
+            border-bottom-color: var(--primary);
             border-radius: 50%;
             animation: spinSmooth 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite reverse;
         }
@@ -439,34 +524,55 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 100px; height: 100px;
+            width: 110px; height: 110px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            background: var(--primary);
             margin-bottom: 16px;
-            box-shadow: 0 8px 32px rgba(108,60,225,0.25);
+            box-shadow: 0 6px 22px rgba(8, 57, 92, 0.2);
+            position: relative;
         }
-        .result-badge .score-big { font-size: 32px; font-weight: 800; color: #fff; }
-        .result-badge .score-max { font-size: 14px; color: rgba(255,255,255,0.8); }
+        .result-badge::after {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            opacity: 0.35;
+        }
+        .result-badge .score-big { font-size: 34px; font-weight: 700; color: #fff; line-height: 1; }
+        .result-badge .score-max { font-size: 13px; color: rgba(255,255,255,0.75); margin-top: 2px; }
 
-        .result-name { font-size: 17px; color: var(--text-light); margin-bottom: 8px; }
+        .result-name { font-size: 16px; color: var(--text-light); margin-bottom: 10px; font-weight: 500; }
 
         .result-title-card {
-            background: linear-gradient(135deg, rgba(108,60,225,0.06), rgba(139,92,246,0.04));
-            border: 1px solid rgba(108,60,225,0.12);
-            border-radius: 14px;
-            padding: 20px 24px;
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-soft);
+            border-radius: var(--radius-lg);
+            padding: 22px 24px;
             margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .result-title-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
         }
         .result-title {
-            font-size: 34px;
-            font-weight: 800;
+            font-size: 32px;
+            font-weight: 700;
             color: var(--primary);
             margin-bottom: 8px;
+            letter-spacing: -0.3px;
         }
         .result-title-desc {
             font-size: 15px;
             color: var(--text-light);
-            line-height: 1.7;
+            line-height: 1.75;
         }
 
         .result-scores {
@@ -477,43 +583,48 @@
         }
         .score-dot {
             width: 48px; height: 48px;
-            border-radius: 12px;
+            border-radius: var(--radius-sm);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-weight: 800;
+            font-weight: 700;
             font-size: 18px;
             color: #fff;
             transition: transform 0.2s ease;
         }
-        .score-dot:hover { transform: scale(1.1); }
-        .score-dot.low { background: #F87171; }
-        .score-dot.mid { background: var(--accent); }
-        .score-dot.high { background: var(--success); }
+        .score-dot:hover { transform: scale(1.08); }
+        .score-dot.low { background: var(--color-orange); }
+        .score-dot.mid { background: var(--color-yellow); color: #5A3A00; }
+        .score-dot.high { background: var(--color-turquoise); }
 
         .result-section {
-            background: var(--bg);
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 16px;
+            background: #fff;
+            border: 1px solid var(--border-soft);
+            border-radius: var(--radius);
+            padding: 22px 24px;
+            margin-bottom: 14px;
         }
         .result-section-title {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
             gap: 8px;
+            text-transform: none;
+            letter-spacing: 0.2px;
         }
-        .result-section-text { font-size: 15px; line-height: 1.8; color: var(--text); }
+        .result-section-text { font-size: 15px; line-height: 1.85; color: var(--text); font-weight: 400; }
 
+        /* إبراز المهارة — لون Turquoise من الهوية */
         .skill-highlight {
-            background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(245,158,11,0.04));
-            border: 1px solid rgba(245,158,11,0.15);
-            border-right: 4px solid var(--accent);
+            background: rgba(0, 177, 199, 0.05);
+            border: 1px solid rgba(0, 177, 199, 0.2);
+            border-right: 4px solid var(--color-turquoise);
         }
+        .skill-highlight .result-section-title { color: var(--color-turquoise); }
 
         .result-actions {
             display: flex;
@@ -668,7 +779,10 @@
     <!-- ════════════ STEP 1: INTRO ════════════ -->
     <div id="step-intro" class="step active">
         <div class="header">
-            <div class="logo-icon reveal" data-d="0">💡</div>
+            <div class="logo-wrap reveal" data-d="0">
+                <div class="logo-icon">IA</div>
+                <span class="logo-text">مقياس الابتكار</span>
+            </div>
         </div>
         <div class="card">
             <h1 class="intro-title reveal" data-d="1">اكتشف دورك في العملية الابتكارية</h1>
@@ -678,15 +792,15 @@
             </p>
             <div class="features">
                 <div class="feature reveal" data-d="3">
-                    <div class="feature-icon">⏱️</div>
+                    <div class="feature-icon">⏱</div>
                     <div class="feature-text">3 دقائق فقط</div>
                 </div>
                 <div class="feature reveal" data-d="4">
-                    <div class="feature-icon">📊</div>
+                    <div class="feature-icon">≡</div>
                     <div class="feature-text">نتيجة فورية</div>
                 </div>
                 <div class="feature reveal" data-d="5">
-                    <div class="feature-icon">🎯</div>
+                    <div class="feature-icon">★</div>
                     <div class="feature-text">توصية مخصصة</div>
                 </div>
             </div>
@@ -699,7 +813,10 @@
     <!-- ════════════ STEP 2: NAME ════════════ -->
     <div id="step-info" class="step">
         <div class="header">
-            <div class="logo-icon">💡</div>
+            <div class="logo-wrap">
+                <div class="logo-icon">IA</div>
+                <span class="logo-text">مقياس الابتكار</span>
+            </div>
         </div>
         <div class="card">
             <h2 class="section-title">الاسم الثلاثي</h2>
@@ -718,7 +835,10 @@
     <!-- ════════════ STEP 3: QUESTIONS ════════════ -->
     <div id="step-questions" class="step">
         <div class="header">
-            <div class="logo-icon">💡</div>
+            <div class="logo-wrap">
+                <div class="logo-icon">IA</div>
+                <span class="logo-text">مقياس الابتكار</span>
+            </div>
         </div>
         <div class="card">
             <div class="progress-container">
@@ -770,13 +890,13 @@
             <div class="result-scores res-reveal" data-d="3" id="res-scores-dots"></div>
 
             <div class="result-section res-reveal" data-d="4">
-                <div class="result-section-title">🎯 دورك في العملية الابتكارية</div>
+                <div class="result-section-title">› دورك في العملية الابتكارية</div>
                 <p class="result-section-text" id="res-role-text"></p>
             </div>
 
             <div class="result-section skill-highlight res-reveal" data-d="5">
-                <div class="result-section-title" style="color: var(--accent);">📈 المهارة الأولى للتطوير</div>
-                <p style="font-size: 18px; font-weight: 700; color: var(--primary); margin-bottom: 8px;" id="res-skill"></p>
+                <div class="result-section-title">› المهارة الأولى للتطوير</div>
+                <p style="font-size: 18px; font-weight: 600; color: var(--primary); margin-bottom: 10px;" id="res-skill"></p>
                 <p class="result-section-text" id="res-recommendation"></p>
             </div>
 

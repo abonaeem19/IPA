@@ -5,34 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الشيت المركزي — مقياس الابتكار</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap');
+        /* Effra font (خط الهوية الرسمي) — fallback: IBM Plex Sans Arabic */
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
 
         :root {
-            --primary: #6C3CE1;
-            --primary-light: #8B5CF6;
-            --accent: #F59E0B;
-            --bg: #F8F7FF;
+            /* === ألوان الهوية الرسمية === */
+            --color-dark-blue: #08395C;
+            --color-blue: #0076B1;
+            --color-yellow: #F5B335;
+            --color-orange: #FF5F2D;
+            --color-green: #00B982;
+            --color-turquoise: #00B1C7;
+            --color-red-purple: #AB2C72;
+            --color-grey: #90ABB6;
+
+            /* === ألوان تطبيقية === */
+            --primary: var(--color-dark-blue);
+            --accent: var(--color-blue);
+            --highlight: var(--color-turquoise);
+
+            /* === خلفيات ونصوص === */
+            --bg: #F7F9FB;
+            --bg-subtle: #EEF3F7;
             --bg-card: #FFFFFF;
-            --text: #1E1B3A;
-            --text-light: #6B7280;
-            --success: #10B981;
-            --border: #E5E7EB;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --text: var(--color-dark-blue);
+            --text-light: #5B7280;
+            --text-muted: #8A9AA7;
+            --border: #DCE4EA;
+            --border-soft: #E8EDF1;
+
+            /* === أحمر تحذيري فقط === */
+            --danger: #C53030;
+            --success: var(--color-green);
+
+            /* === ظلال وتنسيق === */
+            --shadow-sm: 0 1px 3px rgba(8, 57, 92, 0.06);
+            --shadow: 0 4px 16px rgba(8, 57, 92, 0.08);
+            --radius-sm: 6px;
+            --radius: 10px;
+            --radius-lg: 14px;
+            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+            --font: 'Effra', 'IBM Plex Sans Arabic', 'Segoe UI', system-ui, sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Tajawal', sans-serif;
+            font-family: var(--font);
             background: var(--bg);
             color: var(--text);
             min-height: 100vh;
         }
 
         .top-bar {
-            background: var(--bg-card);
-            border-bottom: 1px solid var(--border);
-            padding: 16px 32px;
+            background: var(--primary);
+            color: #fff;
+            padding: 14px 32px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -41,58 +70,95 @@
             position: sticky;
             top: 0;
             z-index: 10;
-            box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+            box-shadow: 0 2px 10px rgba(8, 57, 92, 0.15);
+            border-bottom: 3px solid var(--accent);
         }
         .top-bar h1 {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--primary);
+            font-size: 19px;
+            font-weight: 600;
+            color: #fff;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            letter-spacing: -0.2px;
+        }
+        .top-bar h1::before {
+            content: 'IA';
+            background: #fff;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 14px;
+            padding: 6px 10px;
+            border-radius: var(--radius-sm);
+            letter-spacing: 0;
         }
         .top-bar .actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
         .btn {
             padding: 10px 20px;
             border: none;
-            border-radius: 8px;
-            font-family: 'Tajawal', sans-serif;
+            border-radius: var(--radius);
+            font-family: var(--font);
             font-size: 14px;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
             transition: all var(--transition);
         }
-        .btn-primary { background: var(--primary); color: #fff; }
-        .btn-primary:hover { background: var(--primary-light); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(108,60,225,0.2); }
-        .btn-outline { background: #fff; color: var(--primary); border: 2px solid var(--primary); }
-        .btn-outline:hover { background: rgba(108,60,225,0.05); transform: translateY(-1px); }
-        .btn-danger { background: #EF4444; color: #fff; }
-        .btn-danger:hover { background: #DC2626; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(239,68,68,0.2); }
-        .del-btn { background: none; border: 1px solid #FCA5A5; color: #EF4444; border-radius: 6px; padding: 4px 10px; font-size: 12px; font-family: 'Tajawal'; font-weight: 700; cursor: pointer; transition: all 0.2s; }
-        .del-btn:hover { background: #FEE2E2; border-color: #EF4444; }
+        .btn-primary { background: var(--accent); color: #fff; }
+        .btn-primary:hover { background: #005d8a; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0, 118, 177, 0.25); }
+        .btn-outline { background: #fff; color: var(--primary); border: 1px solid #fff; }
+        .btn-outline:hover { background: rgba(255, 255, 255, 0.9); transform: translateY(-1px); }
+        .btn-danger { background: var(--danger); color: #fff; }
+        .btn-danger:hover { background: #9B1C1C; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(197, 48, 48, 0.22); }
+        .del-btn {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--danger);
+            border-radius: var(--radius-sm);
+            padding: 4px 10px;
+            font-size: 12px;
+            font-family: var(--font);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .del-btn:hover { background: rgba(197, 48, 48, 0.08); border-color: var(--danger); }
 
         /* Stats */
         .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 16px;
+            gap: 14px;
             padding: 24px 32px;
         }
         .stat-card {
             background: var(--bg-card);
-            border-radius: 12px;
+            border-radius: var(--radius);
             padding: 20px;
-            border: 1px solid var(--border);
+            border: 1px solid var(--border-soft);
             opacity: 0;
             transform: translateY(12px);
             transition: opacity 0.4s ease, transform 0.4s ease, box-shadow var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--accent);
         }
         .stat-card.show { opacity: 1; transform: translateY(0); }
-        .stat-card:hover { box-shadow: 0 4px 16px rgba(108,60,225,0.08); }
-        .stat-label { font-size: 13px; color: var(--text-light); margin-bottom: 4px; }
-        .stat-value { font-size: 28px; font-weight: 800; color: var(--primary); }
-        .stat-sub { font-size: 12px; color: var(--text-light); margin-top: 4px; }
+        .stat-card:hover { box-shadow: var(--shadow); }
+        .stat-card.tint-yellow::before { background: var(--color-yellow); }
+        .stat-card.tint-turquoise::before { background: var(--color-turquoise); }
+        .stat-card.tint-red-purple::before { background: var(--color-red-purple); }
+        .stat-label { font-size: 13px; color: var(--text-light); margin-bottom: 6px; font-weight: 500; }
+        .stat-value { font-size: 28px; font-weight: 700; color: var(--primary); letter-spacing: -0.3px; }
+        .stat-sub { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
 
         /* Table */
         .table-wrap { padding: 0 32px 32px; }
@@ -104,28 +170,30 @@
             flex-wrap: wrap;
             gap: 8px;
         }
-        .table-header h2 { font-size: 18px; font-weight: 700; }
+        .table-header h2 { font-size: 18px; font-weight: 600; color: var(--primary); letter-spacing: -0.2px; }
         .search-box {
             padding: 10px 16px;
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            font-family: 'Tajawal', sans-serif;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-family: var(--font);
             font-size: 14px;
             width: 260px;
             outline: none;
             transition: border-color var(--transition), box-shadow var(--transition);
+            background: #fff;
+            color: var(--primary);
         }
         .search-box:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(108,60,225,0.1);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(0, 118, 177, 0.12);
         }
 
         .table-container {
             background: var(--bg-card);
-            border-radius: 12px;
+            border-radius: var(--radius);
             overflow: hidden;
-            border: 1px solid var(--border);
-            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-sm);
         }
         table {
             width: 100%;
@@ -141,43 +209,47 @@
         }
         th {
             padding: 12px 10px;
-            font-weight: 700;
+            font-weight: 600;
             text-align: right;
             white-space: nowrap;
+            font-size: 13px;
+            letter-spacing: 0.1px;
         }
         td {
-            padding: 10px;
-            border-bottom: 1px solid var(--border);
+            padding: 11px 10px;
+            border-bottom: 1px solid var(--border-soft);
             text-align: right;
-            vertical-align: top;
+            vertical-align: middle;
             transition: background 0.15s ease;
         }
-        tr:hover td { background: rgba(108,60,225,0.025); }
+        tr:hover td { background: rgba(0, 118, 177, 0.035); }
 
         .badge {
             display: inline-block;
             padding: 3px 10px;
-            border-radius: 6px;
+            border-radius: var(--radius-sm);
             font-size: 12px;
-            font-weight: 700;
+            font-weight: 600;
         }
-        .badge-organizer { background: #DBEAFE; color: #1E40AF; }
-        .badge-practical { background: #FEF3C7; color: #92400E; }
-        .badge-innovator { background: #D1FAE5; color: #065F46; }
+        /* ألقاب — ألوان الهوية */
+        .badge-organizer { background: rgba(8, 57, 92, 0.1); color: var(--primary); }
+        .badge-practical { background: rgba(245, 179, 53, 0.18); color: #7A4A00; }
+        .badge-innovator { background: rgba(0, 177, 199, 0.15); color: #006578; }
 
         .score-cell {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             width: 28px; height: 28px;
-            border-radius: 6px;
-            font-weight: 800;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
             font-size: 13px;
             color: #fff;
         }
-        .sc-1 { background: #F87171; }
-        .sc-2 { background: var(--accent); }
-        .sc-3 { background: var(--success); }
+        /* نقاط — Orange (منخفض) / Yellow (متوسط) / Turquoise (مرتفع) */
+        .sc-1 { background: var(--color-orange); }
+        .sc-2 { background: var(--color-yellow); color: #5A3A00; }
+        .sc-3 { background: var(--color-turquoise); }
 
         .empty-state {
             text-align: center;
@@ -250,16 +322,24 @@
         }
 
         @media print {
-            body { background: #fff; font-size: 11px; }
+            body { background: #fff; font-size: 11px; color: var(--primary); }
             .top-bar .actions, .search-box, .no-print { display: none !important; }
-            .top-bar { border-bottom: 2px solid #000; padding: 8px 16px; position: static; box-shadow: none; }
-            .top-bar h1 { color: #000; font-size: 16px; }
+            .top-bar {
+                background: #fff;
+                color: var(--primary);
+                border-bottom: 3px solid var(--accent);
+                padding: 8px 16px;
+                position: static;
+                box-shadow: none;
+            }
+            .top-bar h1 { color: var(--primary); font-size: 16px; }
+            .top-bar h1::before { background: var(--primary); color: #fff; }
             .stats { padding: 8px 16px; gap: 8px; }
-            .stat-card { padding: 10px; border: 1px solid #ccc; opacity: 1; transform: none; }
-            .stat-value { font-size: 20px; color: #000; }
+            .stat-card { padding: 10px; border: 1px solid var(--border); opacity: 1; transform: none; box-shadow: none; }
+            .stat-value { font-size: 20px; color: var(--primary); }
             .table-wrap { padding: 0 16px 16px; }
             table { font-size: 10px; }
-            th { background: #333; color: #fff; padding: 6px 4px; }
+            th { background: var(--primary); color: #fff; padding: 6px 4px; }
             td { padding: 5px 4px; }
             thead { position: static; }
             @page { size: landscape; margin: 10mm; }
@@ -269,11 +349,11 @@
 <body>
 
 <div class="top-bar">
-    <h1>💡 الشيت المركزي — نتائج مقياس الابتكار</h1>
+    <h1>الشيت المركزي — نتائج مقياس الابتكار</h1>
     <div class="actions">
-        <button class="btn btn-outline" onclick="loadData()">🔄 تحديث</button>
-        <button class="btn btn-primary" onclick="window.print()">🖨️ طباعة</button>
-        <button class="btn btn-danger no-print" onclick="confirmDeleteAll()">🗑️ حذف الكل</button>
+        <button class="btn btn-outline" onclick="loadData()">تحديث</button>
+        <button class="btn btn-primary" onclick="window.print()">طباعة</button>
+        <button class="btn btn-danger no-print" onclick="confirmDeleteAll()">حذف الكل</button>
     </div>
 </div>
 
@@ -282,7 +362,7 @@
         <div class="stat-label">إجمالي المشاركين</div>
         <div class="stat-value" id="st-total">—</div>
     </div>
-    <div class="stat-card" data-d="1">
+    <div class="stat-card tint-turquoise" data-d="1">
         <div class="stat-label">متوسط الدرجات</div>
         <div class="stat-value" id="st-avg">—</div>
         <div class="stat-sub">من 15</div>
@@ -291,11 +371,11 @@
         <div class="stat-label">المنظم</div>
         <div class="stat-value" id="st-organizer">—</div>
     </div>
-    <div class="stat-card" data-d="3">
+    <div class="stat-card tint-yellow" data-d="3">
         <div class="stat-label">العملي</div>
         <div class="stat-value" id="st-practical">—</div>
     </div>
-    <div class="stat-card" data-d="4">
+    <div class="stat-card tint-red-purple" data-d="4">
         <div class="stat-label">المبتكر</div>
         <div class="stat-value" id="st-innovator">—</div>
     </div>
@@ -304,7 +384,7 @@
 <div class="table-wrap">
     <div class="table-header">
         <h2>جميع النتائج</h2>
-        <input type="text" class="search-box no-print" placeholder="🔍 بحث بالاسم..." oninput="filterTable(this.value)">
+        <input type="text" class="search-box no-print" placeholder="بحث بالاسم..." oninput="filterTable(this.value)">
     </div>
     <div class="result-count no-print" id="result-count"></div>
     <div class="table-container" id="table-container">
@@ -364,7 +444,7 @@ async function loadData() {
     } catch(e) {
         revealStats();
         document.getElementById('table-container').innerHTML =
-            '<div class="empty-state"><div class="icon">⚠️</div><p>تعذر الاتصال بالسيرفر. تأكد من تشغيل server.py</p></div>';
+            '<div class="empty-state"><div class="icon">⚠</div><p>تعذر الاتصال بالسيرفر. تأكد من تشغيل server.pyy</p></div>';
     }
 }
 
@@ -372,7 +452,7 @@ function renderTable(data) {
     const countEl = document.getElementById('result-count');
     if (!data || data.length === 0) {
         document.getElementById('table-container').innerHTML =
-            '<div class="empty-state"><div class="icon">📋</div><p>لا توجد نتائج بعد</p></div>';
+            '<div class="empty-state"><div class="icon">—</div><p>لا توجد نتائج بعد</p></div>';
         countEl.textContent = '';
         return;
     }
