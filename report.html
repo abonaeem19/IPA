@@ -80,16 +80,17 @@
             gap: 10px;
             letter-spacing: -0.2px;
         }
-        .top-bar h1::before {
-            content: 'D';
+        .top-bar .top-logo {
+            width: 34px; height: 34px;
             background: var(--primary);
-            color: var(--accent-dark);
-            font-weight: 700;
-            font-size: 14px;
-            padding: 6px 12px;
             border-radius: var(--radius-sm);
-            letter-spacing: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            flex-shrink: 0;
         }
+        .top-bar .top-logo svg { width: 100%; height: 100%; }
         .top-bar .actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
         .btn {
@@ -333,7 +334,7 @@
                 box-shadow: none;
             }
             .top-bar h1 { color: var(--accent-dark); font-size: 16px; }
-            .top-bar h1::before { background: var(--primary); color: var(--accent-dark); }
+            .top-bar .top-logo { background: var(--primary); }
             .stats { padding: 8px 16px; gap: 8px; }
             .stat-card { padding: 10px; border: 1px solid var(--border); opacity: 1; transform: none; box-shadow: none; }
             .stat-value { font-size: 20px; color: var(--accent-dark); }
@@ -349,7 +350,7 @@
 <body>
 
 <div class="top-bar">
-    <h1>الشيت المركزي — نتائج مقياس الابتكار</h1>
+    <h1><span class="top-logo"><svg viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M261 413.5L235 413.5 205 405.5 180 390.5 163.5 374 153.5 360 146.5 346 141.5 330 138.5 309 139.5 256 144.5 245 158 233.5 169 230.5 208 230.5 211.5 228 213.5 183 218.5 172 227 163.5 235 159.5 244 157.5 282 157.5 285.5 154 286.5 110 291.5 99 300 90.5 307 86.5 315 84.5 359 84.5 360.5 87 359.5 132 352.5 146 343 154.5 331 158.5 291 158.5 286.5 164 285.5 206 280.5 217 269 227.5 258 231.5 219 231.5 216 232.5 213.5 236 214.5 314 219.5 324 232 335.5 243 339.5 256 339.5 270 333.5 279.5 324 284.5 314 285.5 260 287.5 252 292.5 243 302 234.5 312 230.5 354 229.5 359.5 231 358.5 321 353.5 341 345.5 358 327.5 381 309 396.5 290 406.5 278 410.5 261 413.5Z" fill="#FFFFFF" fill-rule="evenodd"/></svg></span>الشيت المركزي — نتائج مقياس الابتكار</h1>
     <div class="actions">
         <button class="btn btn-outline" onclick="loadData()">تحديث</button>
         <button class="btn btn-primary" onclick="window.print()">طباعة</button>
