@@ -508,19 +508,43 @@ function formatDate(dt) {
 
 async function deleteOne(id) {
     if (!confirm('هل تريد حذف هذا السجل؟')) return;
+    const key = _getAuthKey();
+    if (!key) return;
     try {
-        await fetch(`/api/attempts/${id}`, { method: 'DELETE' });
+        const res = await fetch(`/api/attempts/${id}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${key}` }
+        });
+        const d = await res.json();
+        if (d.error) { alert(d.error); return; }
         loadData();
     } catch(e) { alert('فشل الحذف'); }
 }
 
 async function confirmDeleteAll() {
-    if (!confirm('⚠️ هل أنت متأكد من حذف جميع البيانات؟\nهذا الإجراء لا يمكن التراجع عنه.')) return;
+    if (!confirm('هل أنت متأكد من حذف جميع البيانات؟\nهذا الإجراء لا يمكن التراجع عنه.')) return;
     if (!confirm('تأكيد نهائي: سيتم حذف جميع النتائج المسجلة. متأكد؟')) return;
+    const key = _getAuthKey();
+    if (!key) return;
     try {
-        await fetch('/api/attempts/all', { method: 'DELETE' });
+        const res = await fetch('/api/attempts/all', {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${key}` }
+        });
+        const d = await res.json();
+        if (d.error) { alert(d.error); return; }
         loadData();
     } catch(e) { alert('فشل الحذف'); }
+}
+
+// مصادقة بسيطة — يُطلب المفتاح مرة واحدة ويُحفظ في الجلسة
+let _authKey = null;
+function _getAuthKey() {
+    if (_authKey) return _authKey;
+    const key = prompt('أدخل مفتاح الإدارة:');
+    if (!key) { alert('المفتاح مطلوب لعملية الحذف'); return null; }
+    _authKey = key;
+    return key;
 }
 
 loadData();
