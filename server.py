@@ -201,7 +201,7 @@ class IAPHandler(http.server.BaseHTTPRequestHandler):
             answers = data.get("answers", {})
 
             if not full_name or len(full_name) < 5:
-                return _json(self, {"error": "الاسم الثلاثي مطلوب"}, 400)
+                return _json(self, {"error": "الاسم مطلوب"}, 400)
 
             if len(answers) != 5:
                 return _json(self, {"error": "يجب الإجابة على جميع الأسئلة الخمسة"}, 400)

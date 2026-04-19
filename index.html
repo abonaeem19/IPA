@@ -887,10 +887,8 @@
             <div class="logo-ai"><img src="/logo-ai.svg" alt="AI 2026"></div>
         </div>
         <div class="card">
-            <h2 class="section-title">الاسم الثلاثي</h2>
-            <p class="section-subtitle">أدخل اسمك الثلاثي لبدء التقييم</p>
             <div class="form-group">
-                <label><span class="required">*</span> الاسم الثلاثي</label>
+                <label><span class="required">*</span> الاسم</label>
                 <input type="text" id="inp-name" placeholder="مثال: أحمد محمد العلي" oninput="validateName()">
                 <div class="validation-msg" id="name-msg"></div>
             </div>
@@ -1078,7 +1076,7 @@ function validateName() {
     if (parts.length < 3) {
         input.classList.add('error');
         input.classList.remove('valid');
-        msg.textContent = `أدخلت ${parts.length} من 3 كلمات — أكمل الاسم الثلاثي`;
+        msg.textContent = `أدخلت ${parts.length} من 3 كلمات — أكمل الاسم`;
         msg.className = 'validation-msg error-msg';
         btn.disabled = true;
     } else {

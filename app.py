@@ -151,7 +151,7 @@ def submit():
     answers = data.get("answers", {})
 
     if not full_name or len(full_name) < 5:
-        return jsonify({"error": "الاسم الثلاثي مطلوب"}), 400
+        return jsonify({"error": "الاسم مطلوب"}), 400
 
     if len(answers) != 5:
         return jsonify({"error": "يجب الإجابة على جميع الأسئلة الخمسة"}), 400
