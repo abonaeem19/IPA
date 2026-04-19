@@ -38,6 +38,7 @@ REPORT_PASSWORD = os.environ.get("REPORT_PASSWORD", "admin2024")
 ALLOWED_FILES = {
     "/index.html": ("text/html; charset=utf-8", "index.html"),
     "/report.html": ("text/html; charset=utf-8", "report.html"),
+    "/logo-ai.svg": ("image/svg+xml", "logo-ai.svg"),
 }
 
 # ── 🟠 Fix #10: Rate Limiting بسيط ───────────────────────────────────────────

@@ -90,18 +90,51 @@
             justify-content: center;
         }
 
-        .header { text-align: center; margin-bottom: 16px; }
+        .header { 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 16px;
+            padding: 18px 20px;
+            background: linear-gradient(135deg, #0a1628 0%, #0d2137 40%, #091a2a 100%);
+            border-radius: var(--radius-lg);
+            position: relative;
+            overflow: hidden;
+        }
+        /* تأثير خفيف خلف الهيدر */
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -30%;
+            width: 160%;
+            height: 200%;
+            background: radial-gradient(ellipse at 70% 50%, rgba(227, 167, 30, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        .header .logo-ai {
+            width: 100px;
+            height: 100px;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+        .header .logo-ai img {
+            width: 100%;
+            height: 100%;
+        }
         .header .logo-wrap {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 12px 22px;
-            background: #fff;
-            border: 1px solid var(--border-soft);
+            padding: 10px 18px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: var(--radius);
-            box-shadow: var(--shadow-sm);
-            margin-bottom: 8px;
             gap: 12px;
+            position: relative;
+            z-index: 1;
         }
         .header .logo-icon {
             width: 44px; height: 44px;
@@ -120,13 +153,13 @@
         .header .logo-text {
             font-size: 17px;
             font-weight: 700;
-            color: var(--accent);
+            color: #fff;
             letter-spacing: -0.2px;
         }
         .header .logo-text small {
             display: block;
             font-size: 11px;
-            color: var(--text-light);
+            color: rgba(255, 255, 255, 0.6);
             font-weight: 500;
             margin-top: 2px;
             letter-spacing: 0.3px;
@@ -787,6 +820,16 @@
         @supports (padding-bottom: env(safe-area-inset-bottom)) {
             .container { padding-bottom: calc(24px + env(safe-area-inset-bottom)); }
         }
+
+        /* ══════ Responsive header ══════ */
+        @media (max-width: 480px) {
+            .header { gap: 14px; padding: 14px 16px; }
+            .header .logo-ai { width: 70px; height: 70px; }
+            .header .logo-wrap { padding: 8px 12px; }
+            .header .logo-text { font-size: 14px; }
+            .header .logo-text small { font-size: 9px; }
+            .header .logo-icon { width: 36px; height: 36px; }
+        }
     </style>
 </head>
 <body>
@@ -803,6 +846,7 @@
                     <small>Drive Innovation</small>
                 </span>
             </div>
+            <div class="logo-ai reveal" data-d="1"><img src="/logo-ai.svg" alt="AI 2026"></div>
         </div>
         <div class="card">
             <h1 class="intro-title reveal" data-d="1">اكتشف دورك في العملية الابتكارية</h1>
@@ -840,6 +884,7 @@
                     <small>Drive Innovation</small>
                 </span>
             </div>
+            <div class="logo-ai"><img src="/logo-ai.svg" alt="AI 2026"></div>
         </div>
         <div class="card">
             <h2 class="section-title">الاسم الثلاثي</h2>
@@ -865,6 +910,7 @@
                     <small>Drive Innovation</small>
                 </span>
             </div>
+            <div class="logo-ai"><img src="/logo-ai.svg" alt="AI 2026"></div>
         </div>
         <div class="card">
             <div class="progress-container">

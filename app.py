@@ -103,6 +103,11 @@ def index_html():
     return send_from_directory(BASE_DIR, 'index.html')
 
 
+@app.route('/logo-ai.svg')
+def logo_ai():
+    return send_from_directory(BASE_DIR, 'logo-ai.svg')
+
+
 @app.route('/report.html')
 def report():
     return send_from_directory(BASE_DIR, 'report.html')
