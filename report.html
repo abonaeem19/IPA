@@ -464,7 +464,7 @@ function renderTable(data) {
         <thead><tr>
             <th>#</th><th>الاسم</th>
             <th>ربط الأفكار</th><th>التجريب</th><th>الاستكشاف</th><th>التكيف</th><th>الفضول</th>
-            <th>المجموع</th><th>اللقب</th><th>مهارة التطوير</th><th>التاريخ</th><th class="no-print">حذف</th>
+            <th>المجموع</th><th>اللقب</th><th>مهارة التطوير</th><th class="no-print">حذف</th>
         </tr></thead><tbody>`;
 
     data.forEach((a, i) => {
@@ -481,7 +481,6 @@ function renderTable(data) {
             <td style="font-weight:800;font-size:15px;color:var(--primary)">${a.total_score}/15</td>
             <td><span class="badge ${bc}">${a.innovation_title}</span></td>
             <td style="font-size:12px">${a.development_skill}</td>
-            <td style="font-size:11px;color:var(--text-light);white-space:nowrap">${formatDate(a.created_at)}</td>
             <td class="no-print"><button class="del-btn" onclick="deleteOne(${a.id})">حذف</button></td>
         </tr>`;
     });
